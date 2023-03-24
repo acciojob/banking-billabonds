@@ -80,6 +80,8 @@ public class BankAccount {
 
         if(balance-amount < minBalance)
             throw new Exception("Insufficient Balance");
+        else
+            balance -= amount;
     }
 
 }
