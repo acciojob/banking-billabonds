@@ -28,6 +28,20 @@ public class CurrentAccount extends BankAccount{
         // If it is not possible, throw "Valid License can not be generated" Exception
 
         int n = tradeLicenseId.length();
+        int temp = 0;
+
+        for(int i=0;i<n-1;i++)
+        {
+            if(tradeLicenseId.charAt(i) == tradeLicenseId.charAt(i+1))
+                break;
+            else{
+                if(tradeLicenseId.charAt(i) != tradeLicenseId.charAt(i+1))
+                    temp++;
+            }
+        }
+        if(temp == n-1)
+            return ;
+
         int freq[] = new int[26];
 
         for(int i=0;i<n;i++)
