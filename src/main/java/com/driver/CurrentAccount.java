@@ -96,7 +96,7 @@ public class CurrentAccount extends BankAccount{
                 freq[letter]--;
             }
         }
-        String.valueOf(ch);
+        tradeLicenseId = String.valueOf(ch);
     }
 
 }
