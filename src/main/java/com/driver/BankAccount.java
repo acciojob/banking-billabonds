@@ -72,7 +72,7 @@ public class BankAccount {
 
     public void deposit(double amount) {
         //add amount to balance
-        this.balance += amount;
+        balance += amount;
     }
 
     public void withdraw(double amount) throws Exception {
@@ -81,7 +81,7 @@ public class BankAccount {
         if(balance-amount < minBalance)
             throw new Exception("Insufficient Balance");
         else
-            this.balance -= amount;
+            balance -= amount;
     }
 
 }
