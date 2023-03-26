@@ -27,155 +27,72 @@ public class CurrentAccount extends BankAccount {
         // If the characters of the license Id can be rearranged to create any valid license Id
         // If it is not possible, throw "Valid License can not be generated" Exception
 
-        if (!isValid(tradeLicenseId))
-        {
-            String reArrange = change(tradeLicenseId);
+        int n = tradeLicenseId.length();
+        int temp = 0;
 
-            if(reArrange == "")
-                throw new Exception("Valid License can not be generated");
-            else
-                this.tradeLicenseId = reArrange;
+        for (int i = 0; i < n - 1; i++) {
+            if (tradeLicenseId.charAt(i) == tradeLicenseId.charAt(i + 1))
+                break;
+            else {
+                if (tradeLicenseId.charAt(i) != tradeLicenseId.charAt(i + 1))
+                    temp++;
+            }
         }
+        if (temp == n)
+            return;
+
+        int freq[] = new int[26];
+
+        for (int i = 0; i < n; i++)
+            freq[tradeLicenseId.charAt(i) - 'A']++;
+
+        int max = 0, letter = 0;
+
+        for (int i = 0; i < 26; i++) {
+            if (max < freq[i]) {
+                max = freq[i];
+                letter = i;
+            }
+        }
+
+        if (max > (n + 1) / 2)
+            throw new Exception("Valid License can not be generated");
+
+        char ch[] = new char[n];
+
+        // For Even position filling
+        for (int i = 0; i < n; i += 2) {
+            if (freq[letter] > 0) {
+                ch[i] = (char) (letter + 'A');
+                freq[letter]--;
+            } else {
+                for (int j = 0; j < 26; j++) {
+                    if (freq[j] > 0) {
+                        letter = j;
+                        break;
+                    }
+                }
+                ch[i] = (char) (letter + 'A');
+                freq[letter]--;
+            }
+        }
+
+        // For Odd position filling
+        for (int i = 1; i < n; i += 2) {
+            if (freq[letter] > 0) {
+                ch[i] = (char) (letter + 'A');
+                freq[letter]--;
+            } else {
+                for (int j = 0; j < 26; j++) {
+                    if (freq[j] > 0) {
+                        letter = j;
+                        break;
+                    }
+                }
+                ch[i] = (char) (letter + 'A');
+                freq[letter]--;
+            }
+        }
+        tradeLicenseId = String.valueOf(ch);
     }
-
-        public String change(String tradeLicenseId)
-        {
-            int n = tradeLicenseId.length();
-
-            int freq[] = new int[26];
-
-            for (int i = 0; i < n; i++)
-                freq[tradeLicenseId.charAt(i) - 'A']++;
-
-            int max = 0, letter = 0;
-
-            for (int i = 0; i < 26; i++) {
-                if (max < freq[i]) {
-                    max = freq[i];
-                    letter = i;
-                }
-            }
-
-            if (max > (n + 1) / 2)
-                return "";
-
-            char ch[] = new char[n];
-
-            // For Even position filling
-            for (int i = 0; i < n; i += 2) {
-                if (freq[letter] > 0) {
-                    ch[i] = (char) (letter + 'A');
-                    freq[letter]--;
-                } else {
-                    for (int j = 0; j < 26; j++) {
-                        if (freq[j] > 0) {
-                            letter = j;
-                            break;
-                        }
-                    }
-                    ch[i] = (char) (letter + 'A');
-                    freq[letter]--;
-                }
-            }
-
-            // For Odd position filling
-            for (int i = 1; i < n; i += 2) {
-                if (freq[letter] > 0) {
-                    ch[i] = (char) (letter + 'A');
-                    freq[letter]--;
-                } else {
-                    for (int j = 0; j < 26; j++) {
-                        if (freq[j] > 0) {
-                            letter = j;
-                            break;
-                        }
-                    }
-                    ch[i] = (char) (letter + 'A');
-                    freq[letter]--;
-                }
-            }
-            return String.valueOf(ch);
-        }
-
-        public boolean isValid(String tradeLicenseId)
-        {
-            for(int i=0;i<tradeLicenseId.length()-1;i++)
-            {
-                if(tradeLicenseId.charAt(i) == tradeLicenseId.charAt(i+1))
-                    return false;
-            }
-            return true;
-        }
-
-
-
-
-//        int n = tradeLicenseId.length();
-//        int temp = 0;
-//
-//        for (int i = 0; i < n - 1; i++) {
-//            if (tradeLicenseId.charAt(i) == tradeLicenseId.charAt(i + 1))
-//                break;
-//            else {
-//                if (tradeLicenseId.charAt(i) != tradeLicenseId.charAt(i + 1))
-//                    temp++;
-//            }
-//        }
-//        if (temp == n - 1)
-//            return;
-//
-//        int freq[] = new int[26];
-//
-//        for (int i = 0; i < n; i++)
-//            freq[tradeLicenseId.charAt(i) - 'A']++;
-//
-//        int max = 0, letter = 0;
-//
-//        for (int i = 0; i < 26; i++) {
-//            if (max < freq[i]) {
-//                max = freq[i];
-//                letter = i;
-//            }
-//        }
-//
-//        if (max > (n + 1) / 2)
-//            throw new Exception("Valid License can not be generated");
-//
-//        char ch[] = new char[n];
-//
-//        // For Even position filling
-//        for (int i = 0; i < n; i += 2) {
-//            if (freq[letter] > 0) {
-//                ch[i] = (char) (letter + 'A');
-//                freq[letter]--;
-//            } else {
-//                for (int j = 0; j < 26; j++) {
-//                    if (freq[j] > 0) {
-//                        letter = j;
-//                        break;
-//                    }
-//                }
-//                ch[i] = (char) (letter + 'A');
-//                freq[letter]--;
-//            }
-//        }
-//
-//        // For Odd position filling
-//        for (int i = 1; i < n; i += 2) {
-//            if (freq[letter] > 0) {
-//                ch[i] = (char) (letter + 'A');
-//                freq[letter]--;
-//            } else {
-//                for (int j = 0; j < 26; j++) {
-//                    if (freq[j] > 0) {
-//                        letter = j;
-//                        break;
-//                    }
-//                }
-//                ch[i] = (char) (letter + 'A');
-//                freq[letter]--;
-//            }
-//        }
-//        tradeLicenseId = String.valueOf(ch);
-//    }
 }
