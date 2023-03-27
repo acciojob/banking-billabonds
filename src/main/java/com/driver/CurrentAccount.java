@@ -38,7 +38,7 @@ public class CurrentAccount extends BankAccount {
                     temp++;
             }
         }
-        if (temp == n)
+        if (temp == n-1)
             return;
 
         int freq[] = new int[26];
@@ -61,12 +61,17 @@ public class CurrentAccount extends BankAccount {
         char ch[] = new char[n];
 
         // For Even position filling
-        for (int i = 0; i < n; i += 2) {
-            if (freq[letter] > 0) {
+        for (int i = 0; i < n; i += 2)
+        {
+            if (freq[letter] > 0)
+            {
                 ch[i] = (char) (letter + 'A');
                 freq[letter]--;
-            } else {
-                for (int j = 0; j < 26; j++) {
+            }
+            else
+            {
+                for (int j = 0; j < 26; j++)
+                {
                     if (freq[j] > 0) {
                         letter = j;
                         break;
@@ -78,11 +83,15 @@ public class CurrentAccount extends BankAccount {
         }
 
         // For Odd position filling
-        for (int i = 1; i < n; i += 2) {
-            if (freq[letter] > 0) {
+        for (int i = 1; i < n; i += 2)
+        {
+            if (freq[letter] > 0)
+            {
                 ch[i] = (char) (letter + 'A');
                 freq[letter]--;
-            } else {
+            }
+            else
+            {
                 for (int j = 0; j < 26; j++) {
                     if (freq[j] > 0) {
                         letter = j;
